@@ -1,5 +1,6 @@
 import unittest
 
+# Let's test some fundamental math here
 class NumbersTest(unittest.TestCase):
 
     def test_equal(self):
