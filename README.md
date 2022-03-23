@@ -1,2 +1,19 @@
 # sanarise_infra
 sanarise Infra repository
+
+# Занятие 5. Знакомство с облачной инфраструктурой и облачными сервисами
+
+## Самостоятельные задания.
+ - > Исследовать способ подключения к `someinternalhost` в одну команду из вашего рабочего устройства.
+
+   Можно использовать вызов с опцией `-J`. Формат `ssh -J <jump-basionhost> <target-someinternalhost>`. [Демо](https://asciinema.org/a/4C1kSacuLlQdXhJB2eMsWXRM1).
+ - > Предложить вариант решения для подключения из консоли при помощи команды вида `ssh someinternalhost` из локальной консоли рабочего устройства.
+
+   Можно прописать в файле `~/.ssh/config` хост с именем `someinternalhost` в формате ниже. [Демо](https://asciinema.org/a/kaVv5ecZe26c29jrv1SmRp9Ya).
+   ```
+   Host someinternalhost
+	ProxyJump appuser@<jump-basionhost>
+	HostName <target-someinternalhost>
+	User appuser
+	IdentityFile ~/.ssh/appuser
+   ```
