@@ -17,3 +17,7 @@ sanarise Infra repository
 	User appuser
 	IdentityFile ~/.ssh/appuser
    ```
+ - > С помощью сервисов sslip.io/xip.io и Let’s Encrypt реализуйте использование валидного сертификата для панели управления VPN- сервера.
+
+   Публичный IP адрес bastion-хоста `51.250.67.19`. Соотвественно прописываем в настройках pritunl параметр `Lets Encrypt Domain` в `51-250-67-19.sslip.io`.
+   После этого pritunl сам подтягивает TLS сертификат с Let's Encrypt. [Источник](https://docs.pritunl.com/docs/letsencrypt-ssl-certificate)
