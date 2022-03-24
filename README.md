@@ -21,3 +21,10 @@ sanarise Infra repository
 
    Публичный IP адрес bastion-хоста `51.250.67.19`. Соотвественно прописываем в настройках pritunl параметр `Lets Encrypt Domain` в `51-250-67-19.sslip.io`.
    После этого pritunl сам подтягивает TLS сертификат с Let's Encrypt. [Источник](https://docs.pritunl.com/docs/letsencrypt-ssl-certificate)
+
+## IP-адреса хостов
+
+```
+bastion_IP = 51.250.67.19
+someinternalhost_IP = 10.128.0.20
+```
