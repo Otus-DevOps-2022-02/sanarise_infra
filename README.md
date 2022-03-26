@@ -3,12 +3,14 @@ sanarise Infra repository
 
 # Занятие 6. Основные сервисы Yandex Cloud
 
-
+ 1. Скрипт создания виртуальной машины с помощью `yc compute instance` помещен в `yc_compute_instance_create.sh`.
+    - добавлена обязательная опция `--zone`
+    - добавлена опция `--core-fraction=20`, чтобы снизить стоимость эксплуатации
 
 ## IP-адреса хостов
 
 ```
-testapp_IP = 51.250.67.19
+testapp_IP = 51.250.71.229
 testapp_port = 9292
 ```
 
