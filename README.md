@@ -3,9 +3,27 @@ sanarise Infra repository
 
 # Занятие 6. Основные сервисы Yandex Cloud
 
- 1. Скрипт создания виртуальной машины с помощью `yc compute instance` помещен в `yc_compute_instance_create.sh`.
+ 1. Скрипт создания виртуальной машины с помощью [yc compute instance create](https://cloud.yandex.ru/docs/cli/cli-ref/managed-services/compute/instance/create) помещен в `yc_compute_instance_create.sh`
     - добавлена обязательная опция `--zone`
     - добавлена опция `--core-fraction=20`, чтобы снизить стоимость эксплуатации
+ 2. Созданы скрипты `install_ruby.sh`, `install_mongodb.sh`, `deploy.sh`, содержащие команды для пуска/наладки reddit-app-хоста.
+ 3. **Доп. задание** Скрипт `yc_metadata_from_file.sh` содержит вызов `yc` с передачей ему опции `--metadata-from-file` со значением `user-data=./metadata.yaml`. В файле метаданных производится настройка пользователя, и выполняются команды, скачивающие с GitHub ранее написанные скрипты и запускающие их. Таким образом вызова этой команды достаточно чтобы развернуть reddit-app-хост вместе с приложением.
+[Метаданные виртуальной машины](https://cloud.yandex.ru/docs/cli/cli-ref/managed-services/compute/instance/create)
+[Cloud config examples](https://cloudinit.readthedocs.io/en/latest/topics/examples.html)
+
+``` shell
+yc compute instance create \
+  --name reddit-app \
+  --hostname reddit-app \
+  --memory=4 \
+  --cores=2 \
+  --core-fraction=20 \
+  --zone=ru-central1-a \
+  --create-boot-disk image-folder-id=standard-images,image-family=ubuntu-1604-lts,size=10GB \
+  --network-interface subnet-name=default-ru-central1-a,nat-ip-version=ipv4,nat-address=51.250.71.229 \
+  --metadata serial-port-enable=1 \
+  --metadata-from-file user-data=./metadata.yaml
+```
 
 ## IP-адреса хостов
 
