@@ -1,0 +1,19 @@
+#cloud-config
+users:
+  - name: yc-user
+    groups: sudo
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCp1c9GFrG3zwUhpieurtGkZQgyUbwQEbPLhlFqcSehe7ncZymSShqUqYNgyReWpD6nNlxEZwmXlTMcrr35sarZp3z/I86785RpI/q7ZJCFM4lu3NbhLTLut7AZGknBCvSkmeLPkI5sPexPJACLXPyulviSvJZHTYDxBZiskVFIosccksi205e3ycGxMziiCEmyoI5t6daGL7nVMdEZAHXBH0KOGFE5b7LhkvqSAPaQ4MJrZGYaZOR6nrH0CVyipp+GEcw4CpwX/66sN9gc0Fd+zSMbzJthcocNK+oQRxBPMhtpThLVh5+dLVX3J50fF/4sO0+UsPuzgUutyckPA4ZBW8Bqg/95XLLvCrxCHOb4w/+0bYGl/loLuEkkhtjwGarpIvEKg9qrOb0bJyvKlG/BquegMnl/robneofwU1R8LiSwIg76jd94033LOm9QxCbFg2aKGL5FH3jKAf10/eyyRQy7efZH4CczeAqj6lJHQw+RbEn+mT9BRbww0c3utC0= appuser
+
+runcmd:
+  - wget "https://raw.githubusercontent.com/Otus-DevOps-2022-02/sanarise_infra/cloud-testapp/install_ruby.sh"
+  - bash install_ruby.sh
+  - wget "https://raw.githubusercontent.com/Otus-DevOps-2022-02/sanarise_infra/cloud-testapp/install_mongodb.sh"
+  - bash install_mongodb.sh
+  - wget "https://raw.githubusercontent.com/Otus-DevOps-2022-02/sanarise_infra/cloud-testapp/deploy.sh"
+  - bash deploy.sh
+  - rm install_ruby.sh install_mongodb.sh deploy.sh
+
+final_message: "The system is finally up, after $UPTIME seconds"
