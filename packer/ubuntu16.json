@@ -1,0 +1,34 @@
+{
+	"builders": [
+		{
+			"type": "yandex",
+			"service_account_key_file": "secrets/key.json",
+			"folder_id": "b1gqp7711qhgjtc9l0mi",
+			"source_image_family": "ubuntu-1604-lts",
+			"image_name": "reddit-base-{{timestamp}}",
+			"image_family": "reddit-base",
+			"ssh_username": "ubuntu",
+			"platform_id": "standard-v1",
+			"use_ipv4_nat": "true",
+			"subnet_id": "e9bkt8p86vv20gmjvos4"
+		}
+	],
+	"provisioners": [
+		{
+			"type": "shell",
+			"inline": [
+				"cloud-init status --wait"
+			]
+		},
+		{
+	        "type": "shell",
+	        "script": "packer/scripts/install_ruby.sh",
+	        "execute_command": "{{.Path}}"
+		},
+		{
+			"type": "shell",
+			"script": "packer/scripts/install_mongodb.sh",
+			"execute_command": "{{.Path}}"
+		}
+	]
+}
