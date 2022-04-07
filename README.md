@@ -1,6 +1,19 @@
 # sanarise_infra
 sanarise Infra repository
 
+# Занятие 7. Модели управления инфраструктурой. Подготовка образов с помощью Packer
+
+ 1. Создан шаблон `ubuntu16.json` для настройки хоста с предустановленными Ruby и MongoDB.
+ 2. Поведена параметризация шаблона `ubuntu16.json` переменными `yc_folder_id`, `yc_sa_key_file`, `yc_subnet_id`.
+ 3. **Доп. задание** Создан шаблон `immutable.json` для настройки хоста с запущенным приложением.
+ 4. **Доп. задание** Создан скрипт `create-reddit-vm.sh` создающий экземпляр виртуальной машины из образа, полученного в задании 3.
+
+## URL reddit-full хоста
+
+```
+http://51.250.80.31:9292/
+```
+
 # Занятие 6. Основные сервисы Yandex Cloud
 
  1. Скрипт создания виртуальной машины с помощью [yc compute instance create](https://cloud.yandex.ru/docs/cli/cli-ref/managed-services/compute/instance/create) помещен в `yc_compute_instance_create.sh`
