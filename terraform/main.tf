@@ -17,6 +17,7 @@ provider "yandex" {
 
 resource "yandex_compute_instance" "reddit-app" {
   name = "reddit-app"
+  hostname = "reddit-app"
   resources {
     cores = 2
     memory = 2
@@ -31,5 +32,8 @@ resource "yandex_compute_instance" "reddit-app" {
     subnet_id = "e9bkt8p86vv20gmjvos4"
     nat = true
     nat_ip_address = "51.250.82.15"
+  }
+  metadata = {
+    ssh-keys = "ubuntu:${file("~/.ssh/ubuntu.pub")}"
   }
 }
