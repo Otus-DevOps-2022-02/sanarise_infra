@@ -38,4 +38,18 @@ resource "yandex_compute_instance" "reddit-app" {
   metadata = {
     ssh-keys = "ubuntu:${file("~/.ssh/ubuntu.pub")}"
   }
+  connection {
+    type = "ssh"
+    host = yandex_compute_instance.reddit-app.network_interface.0.nat_ip_address
+    user = "ubuntu"
+    agent = false
+    private_key = file("~/.ssh/ubuntu")
+  }
+  provisioner "file" {
+    source = "files/puma.service"
+    destination = "/tmp/puma.service"
+  }
+  provisioner "remote-exec" {
+    script = "files/deploy.sh"
+  }
 }
