@@ -9,10 +9,10 @@ terraform {
 }
 
 provider "yandex" {
-  service_account_key_file = "secrets/key.json"
-  cloud_id = "b1gkqjl0oe48651f5mjj"
-  folder_id = "b1gqp7711qhgjtc9l0mi"
-  zone = "ru-central1-a"
+  service_account_key_file = var.service_account_key_file
+  cloud_id = var.cloud_id
+  folder_id = var.folder_id
+  zone = var.zone
 }
 
 # data "yandex_compute_image"
@@ -27,16 +27,16 @@ resource "yandex_compute_instance" "reddit-app" {
   }
   boot_disk {
     initialize_params {
-      image_id = "fd83mfr8osk59okkaslo"
+      image_id = var.image_id
     }
   }
   network_interface {
-    subnet_id = "e9bkt8p86vv20gmjvos4"
+    subnet_id = var.subnet_id
     nat = true
     nat_ip_address = "51.250.82.15"
   }
   metadata = {
-    ssh-keys = "ubuntu:${file("~/.ssh/ubuntu.pub")}"
+    ssh-keys = "ubuntu:${file(var.public_key_path)}"
   }
   connection {
     type = "ssh"
