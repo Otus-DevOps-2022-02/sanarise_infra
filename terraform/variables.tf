@@ -27,5 +27,5 @@ variable connection_private_key_path {
 }
 variable app_instance_zone {
   description = "Zone for reddit-app instance"
-  default = "ru-central1-a"
+  default     = "ru-central1-a"
 }
