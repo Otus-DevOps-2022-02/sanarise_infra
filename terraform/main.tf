@@ -15,6 +15,8 @@ provider "yandex" {
   zone = "ru-central1-a"
 }
 
+# data "yandex_compute_image"
+
 resource "yandex_compute_instance" "reddit-app" {
   name = "reddit-app"
   hostname = "reddit-app"
