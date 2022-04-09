@@ -22,3 +22,10 @@ variable subnet_id {
 variable service_account_key_file {
   description = "key.json"
 }
+variable connection_private_key_path {
+  description = "Private key for provisioners"
+}
+variable app_instance_zone {
+  description = "Zone for reddit-app instance"
+  default = "ru-central1-a"
+}
