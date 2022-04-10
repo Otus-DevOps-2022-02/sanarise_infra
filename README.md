@@ -13,7 +13,7 @@ sanarise Infra repository
     - `nat_ip_address` reddit-app-хоста вынесен во output-переменные.
     - Добавлены провиженеры для развертывания приложения.
     - Все строковые значения, id, пути файлов вынесены в variables.
-      - объявления в файле `variables.tr`
+      - объявления в файле `variables.tf`
       - значения в файле `terraform.tfvars`
  2. Дополнительное задание
     - С помощью ресурсов `yandex_alb_load_balancer`, `yandex_alb_http_router`, `yandex_alb_backend_group`, `yandex_alb_target_group`, `yandex_alb_virtual_host` описан HTTP-балансировщик в файле `lb.tf`.
