@@ -53,7 +53,7 @@ resource "yandex_alb_backend_group" "reddit-backend-group" {
     name             = "reddit-http-backend"
     weight           = 1
     port             = 9292
-    target_group_ids = [yandex_alb_target_group.reddit-target-group.id]
+    target_group_ids = yandex_alb_target_group.reddit-target-group.*.id
     load_balancing_config {
       panic_threshold = 50
     }
@@ -70,10 +70,11 @@ resource "yandex_alb_backend_group" "reddit-backend-group" {
 resource "yandex_alb_target_group" "reddit-target-group" {
   name = "reddit-target-group"
 
-  target {
-    subnet_id  = var.subnet_id
-    ip_address = yandex_compute_instance.reddit-app.network_interface.0.ip_address
+  dynamic "target" {
+    for_each = yandex_compute_instance.reddit-app.*.network_interface.0.ip_address
+    content {
+      subnet_id  = var.subnet_id
+      ip_address = target.value
+    }
   }
 }
-
-

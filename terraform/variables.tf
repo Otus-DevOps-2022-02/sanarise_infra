@@ -29,3 +29,6 @@ variable app_instance_zone {
   description = "Zone for reddit-app instance"
   default     = "ru-central1-a"
 }
+variable reddit-app-count {
+  default = "1"
+}

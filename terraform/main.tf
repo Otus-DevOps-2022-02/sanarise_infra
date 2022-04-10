@@ -15,8 +15,9 @@ provider "yandex" {
 # data "yandex_compute_image"
 
 resource "yandex_compute_instance" "reddit-app" {
-  name     = "reddit-app"
-  hostname = "reddit-app"
+  count    = var.reddit-app-count
+  name     = "reddit-app-${count.index}"
+  hostname = "reddit-app-${count.index}"
   zone     = var.app_instance_zone
   resources {
     cores         = 2
@@ -31,14 +32,14 @@ resource "yandex_compute_instance" "reddit-app" {
   network_interface {
     subnet_id      = var.subnet_id
     nat            = true
-    nat_ip_address = "51.250.82.15"
+    # nat_ip_address = "51.250.82.15"
   }
   metadata = {
     ssh-keys = "ubuntu:${file(var.public_key_path)}"
   }
   connection {
     type        = "ssh"
-    host        = yandex_compute_instance.reddit-app.network_interface.0.nat_ip_address
+    host        = self.network_interface.0.nat_ip_address
     user        = "ubuntu"
     agent       = false
     private_key = file(var.connection_private_key_path)
