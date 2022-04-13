@@ -22,10 +22,15 @@ variable service_account_key_file {
 variable connection_private_key_path {
   description = "Private key for provisioners"
 }
-variable app_instance_zone {
-  description = "Zone for reddit-app instance"
-  default     = "ru-central1-a"
-}
 variable reddit-app-count {
   default = "1"
+}
+variable app_image_id {
+  description = "Application disk image id"
+}
+variable reddit-db-count {
+  default = "1"
+}
+variable db_image_id {
+  description = "Database disk image id"
 }
