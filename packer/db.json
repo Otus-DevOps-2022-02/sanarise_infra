@@ -1,0 +1,28 @@
+{
+	"variables": {
+		"yc_folder_id": "{{env `YC_FOLDER_ID`}}",
+		"yc_sa_key_file": "{{env `YC_SA_KEY_FILE`}}",
+		"yc_subnet_id": "{{env `YC_SUBNET_ID`}}"
+	},
+	"builders": [
+		{
+			"type": "yandex",
+			"service_account_key_file": "{{user `yc_sa_key_file`}}",
+			"folder_id": "{{user `yc_folder_id`}}",
+			"source_image_family": "ubuntu-1604-lts",
+			"image_name": "reddit-app-{{timestamp}}",
+			"image_family": "reddit-app",
+			"ssh_username": "ubuntu",
+			"platform_id": "standard-v1",
+			"use_ipv4_nat": "true",
+			"subnet_id": "{{user `yc_subnet_id`}}"
+		}
+	],
+	"provisioners": [
+		{
+			"type": "shell",
+			"script": "scripts/install_mongodb.sh",
+			"execute_command": "{{.Path}}"
+		}
+	]
+}
