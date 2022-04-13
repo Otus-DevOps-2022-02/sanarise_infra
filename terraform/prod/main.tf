@@ -14,12 +14,12 @@ provider "yandex" {
 }
 
 module "vpc" {
-  source = "./modules/vpc"
+  source = "../modules/vpc"
   zone   = var.zone
 }
 
 module "app" {
-  source                      = "./modules/app"
+  source                      = "../modules/app"
   zone                        = var.zone
   subnet_id                   = module.vpc.app_subnet_id
   app_image_id                = var.app_image_id
@@ -28,7 +28,7 @@ module "app" {
 }
 
 module "db" {
-  source          = "./modules/db"
+  source          = "../modules/db"
   zone            = var.zone
   subnet_id       = module.vpc.app_subnet_id
   db_image_id     = var.db_image_id
