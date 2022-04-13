@@ -13,10 +13,10 @@ provider "yandex" {
   zone                     = var.zone
 }
 
-resource "yandex_compute_instance" "reddit-app" {
+resource "yandex_compute_instance" "app" {
   count    = var.reddit-app-count
-  name     = "reddit-app-${count.index}"
-  hostname = "reddit-app-${count.index}"
+  name     = "app-${count.index}"
+  hostname = "app-${count.index}"
   zone     = var.app_instance_zone
   resources {
     cores         = 2
@@ -29,9 +29,8 @@ resource "yandex_compute_instance" "reddit-app" {
     }
   }
   network_interface {
-    subnet_id      = var.subnet_id
+    subnet_id      = yandex_vpc_subnet.app-subnet.id
     nat            = true
-    # nat_ip_address = "51.250.82.15"
   }
   metadata = {
     ssh-keys = "ubuntu:${file(var.public_key_path)}"
@@ -50,4 +49,15 @@ resource "yandex_compute_instance" "reddit-app" {
   provisioner "remote-exec" {
     script = "files/deploy.sh"
   }
+}
+
+resource "yandex_vpc_network" "app-network" {
+  name = "reddit-app-network"
+}
+
+resource "yandex_vpc_subnet" "app-subnet" {
+  name           = "reddit-app-subnet"
+  zone           = var.app_instance_zone
+  network_id     = yandex_vpc_network.app-network.id
+  v4_cidr_blocks = ["192.168.10.0/24"]
 }
