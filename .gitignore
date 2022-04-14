@@ -1,5 +1,4 @@
-/packer/secrets/
-/terraform/secrets/
+**/secrets/
 *.tfstate
 *.tfstate.*.backup
 *.tfstate.backup
