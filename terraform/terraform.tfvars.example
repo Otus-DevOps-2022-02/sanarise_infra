@@ -1,0 +1,6 @@
+service_account_key_file    = "secrets/key.json"
+cloud_id                    = "b1****************jj"
+folder_id                   = "b1****************mi"
+zone                        = "ru-central1-a"
+access_key                  = "YC*********************PC"
+secret_key                  = "YC************************************f_"
