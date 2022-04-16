@@ -1,0 +1,11 @@
+---
+all:
+  children:
+    app:
+      hosts:
+        appserver:
+          ansible_host: 51.250.64.204
+    db:
+      hosts:
+        dbserver:
+          ansible_host: 51.250.66.235
