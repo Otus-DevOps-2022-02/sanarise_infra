@@ -3,6 +3,7 @@
   hosts: all
   vars:
     mongo_bind_ip: 0.0.0.0
+
   tasks:
     - name: Setup mongodb config file
       become: true
@@ -12,7 +13,25 @@
         mode: 0644
       tags: db
       notify: Restart mongod
+
+    - name: Add unit file for Puma
+      become: true
+      copy:
+        src: files/puma.service
+        dest: /etc/systemd/system/puma.service
+      tags: app
+      notify: Reload puma
+
+    - name: Enable puma
+      become: true
+      systemd: name=puma enabled=yes
+      tags: app
+
   handlers:
     - name: Restart mongod
       become: true
       service: name=mongod state=restarted
+
+    - name: Reload puma
+      become: true
+      service: name=puma state=restarted
