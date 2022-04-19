@@ -11,3 +11,8 @@
         dest: /etc/mongod.conf
         mode: 0644
       tags: db
+      notify: Restart mongod
+  handlers:
+    - name: Restart mongod
+      become: true
+      service: name=mongod state=restarted
