@@ -3,7 +3,7 @@
   hosts: all
   vars:
     mongo_bind_ip: 0.0.0.0
-    db_host: 192.168.10.27
+    db_host: 192.168.10.17
 
   tasks:
     - name: Setup mongodb config file
