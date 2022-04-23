@@ -1,0 +1,4 @@
+---
+# handlers file for app
+- name: Reload puma
+  service: name=puma state=reloaded
