@@ -1,0 +1,66 @@
+---
+- name: Configure hosts & application deployment
+  hosts: all
+  vars:
+    mongo_bind_ip: 0.0.0.0
+    db_host: 192.168.10.17
+
+  tasks:
+    - name: Setup mongodb config file
+      become: true
+      template:
+        src: templates/mongod.conf.j2
+        dest: /etc/mongod.conf
+        mode: 0644
+      tags: db
+      notify: Restart mongod
+
+    - name: Add unit file for Puma
+      become: true
+      copy:
+        src: files/puma.service
+        dest: /etc/systemd/system/puma.service
+      tags: app
+      notify: Reload puma
+
+    - name: Add config for DB connection
+      template:
+        src: templates/db_config.j2
+        dest: /home/ubuntu/db_config
+      tags: app
+
+    - name: Enable puma
+      become: true
+      systemd: name=puma enabled=yes
+      tags: app
+
+    - name: Install GIT
+      become: true
+      apt:
+        name: git
+        update_cache: yes
+        state: present
+      tags: deploy
+
+    - name: Fetch the latest version of application code
+      git:
+        repo: 'https://github.com/express42/reddit.git'
+        dest: /home/ubuntu/reddit
+        version: monolith
+      tags: deploy
+      notify: Reload puma
+
+    - name: Bundle install
+      bundler:
+        state: present
+        chdir: /home/ubuntu/reddit
+      tags: deploy
+
+  handlers:
+    - name: Restart mongod
+      become: true
+      service: name=mongod state=restarted
+
+    - name: Reload puma
+      become: true
+      service: name=puma state=restarted
